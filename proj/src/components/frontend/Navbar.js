@@ -1,7 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext'; // Import your AuthContext
+
+
 
 const Navbar = () => {
+    const { authState, logout } = useContext(AuthContext); // Get authState and logout function
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+    
+        logout(); // Call logout function from context
+        localStorage.removeItem('teacherName'); 
+        navigate('/TeacherLogin'); // Redirect to login page after logout
+    };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -19,11 +31,16 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
+                            <Link className="nav-link" to="/TeacherLogin">Login</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/signup">Sign Up</Link>
+                            <Link className="nav-link" to="/SignUpRole">Sign Up</Link>
                         </li>
+                        <li className="nav-item">
+                                    <button className="nav-link btn" style={{ background: 'none', color: 'white', border: 'none' }} onClick={handleLogout}>
+                                        Logout
+                                    </button>
+                                </li>
                     </ul>
                 </div>
             </div>

@@ -13,7 +13,9 @@ export const AuthProvider = ({ children }) => {
         // Check if user is already logged in (you can use a token in localStorage)
         const checkAuth = async () => {
             try {
+                console.log("kkshd");
                 const response = await axios.get('http://localhost:5000/api/check-auth', { withCredentials: true });
+                console.log("ress ",response.data);
                 setAuthState({ isAuthenticated: true, user: response.data.user });
             } catch (error) {
                 setAuthState({ isAuthenticated: false, user: null });
@@ -23,7 +25,9 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (user) => {
+        console.log("loginnnnnnn");
         setAuthState({ isAuthenticated: true, user });
+        console.log("isauthhh ",authState.isAuthenticated);
     };
 
     const logout = async () => {
